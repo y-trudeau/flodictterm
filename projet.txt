@@ -1,0 +1,68 @@
+Domaine:
+      |
+      -- Client
+              |
+	      -- Fiche Terminologique
+		 - tag
+		     |
+		     -- Tags
+                 - Terme anglais
+                               |
+                               -- Contexte
+                                  - Source
+                 - Terme français
+                               |
+                               -- Contexte
+                                  - Source
+                 - Definition (peut-être vide)
+                 - Date
+                 - Signature
+                 - Remarques/notes (peut-être vide)
+
+
+Client 1 --- oo Domaine 1 --- oo RelDomFiche oo --- 1 Fiche
+Fiche 1 --- oo RelFicheTag oo --- Tag
+
+Contexte sera un autre type d'objet -> table
+
+en plus de l'admin django, l'API
+
+API
+---
+LME = Lit/Modifie/Efface
+
+Domaine:
+	- Liste domaines (d'un client)
+	- LME domaine
+	- Cherche domaine
+	- Ajout fiche (d'un domaine d'un client)
+
+Client:
+	- Liste clients
+	- LME client
+	- Cherche client
+	- Ajout domaine (pour un client)
+
+Fiche: 
+	- Liste fiche (d'un client)
+	- LME fiche
+ 	- Cherche Fiche par mots dans définition français ou anglais et par tags pour un client
+ 	- Cherche Fiche par mots dans définition français ou anglais et par tags pour tout les clients
+	- Copie fiche vers autre (client,domaine)
+
+Tag:	
+	- List tags
+	- LME tag
+	- Liste fiches ayant ce tag
+
+
+À faire:
+
+- Créer des applications spécifiques pour chaque type d'objets
+
+
+
+
+	
+	
+
