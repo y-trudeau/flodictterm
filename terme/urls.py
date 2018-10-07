@@ -1,6 +1,6 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from . import views
 
 urlpatterns = [
-    path('', HelloWorld.as_view(), name="hello"),
+    url('', HelloWorld.as_view(), name="hello"),
 ]
