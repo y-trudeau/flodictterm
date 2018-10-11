@@ -1,5 +1,5 @@
 from django.conf.urls import *
-from . import views
+from terme.views import HelloWorld
 
 urlpatterns = [
     url('', HelloWorld.as_view(), name="hello"),
