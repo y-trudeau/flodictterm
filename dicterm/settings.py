@@ -22,8 +22,6 @@ SECRET_KEY = '+gc@+2p7s1v@pt-##46%5=$g+ch0u4n78w@!=v(_9@(&^h!7-s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
 
@@ -60,12 +58,19 @@ TEMPLATES = [
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+	'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
+
+X_FRAME_OPTIONS = DENY
 
 ROOT_URLCONF = 'dicterm.urls'
 
