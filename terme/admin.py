@@ -1,8 +1,10 @@
-from terme.models import Client, Domaine, Terme, Tag, Context
+from terme.models import Client, Domaine, TermeAn, TermeFr, Tag, Contexte, RelTermeAnFr
 from django.contrib import admin
 
 admin.site.register(Client)
 admin.site.register(Domaine)
-admin.site.register(Terme)
+admin.site.register(TermeAn)
+admin.site.register(TermeFr)
 admin.site.register(Tag)
-admin.site.register(Context)
+admin.site.register(Contexte)
+admin.site.register(RelTermeAnFr)

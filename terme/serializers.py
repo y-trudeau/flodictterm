@@ -22,16 +22,30 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ('id', 'nom_tag')
 
-class TermeSerializer(serializers.ModelSerializer):
-    """Serializer pour la classe Terme."""
+class TermeAnSerializer(serializers.ModelSerializer):
+    """Serializer pour la classe TermeAn."""
 
     class Meta:
-        model = Terme
-        fields = ('id', 'terme_fr','terme_an','definition','domaine','tag')
+        model = TermeAn
+        fields = ('id', 'terme','definition','note','domaine')
 
-class ContextSerializer(serializers.ModelSerializer):
+class TermeFrSerializer(serializers.ModelSerializer):
+    """Serializer pour la classe TermeFr."""
+
+    class Meta:
+        model = TermeAn
+        fields = ('id', 'terme','definition','note','contexte')
+
+class RelTermAnFr(serializers.ModelSerializer):
+    """Serializer pour la classe RelTermAnFr."""
+
+    class Meta:
+        model = RelTermAnFr
+        fields = ('id', 'termeAn','contexte','termeFr')
+
+class ContexteSerializer(serializers.ModelSerializer):
     """Serializer pour la classe Tag."""
 
     class Meta:
-        model = Context
-        fields = ('id', 'source','context')
+        model = Contexte
+        fields = ('id', 'source','contexte','note')

@@ -19,18 +19,34 @@ class Tag(models.Model):
   def __unicode__(self):
     return '[ ' + self.nom_tag + ' ]'
 
-class Terme(models.Model):
-  terme_fr = models.CharField(max_length=84)
-  terme_an = models.CharField(max_length=84)
+class TermeAn(models.Model):
+  terme = models.CharField(max_length=84)
   definition = models.TextField()
-  domaine = models.ManyToManyField(Domaine)
-  tag = models.ManyToManyField(Tag)
+  note = models.TextField()
+  domaine = models.ForeignKey(Domaine)
   
   def __unicode__(self):
-    return '[ ' + self.terme_fr + ' / ' + self.terme_an + ' ]'
-
-class Context(models.Model):
+    return '[ ' + self.terme + ' ]'
+ 
+class RelTermeAnFr(models.Model):
+   termeAn = models.ForeignKey(TermeAn)
+   contexte = models.ForeignKey(Contexte)
+   termeFr = models.ForeignKey(TermeFr)
+	
+class Contexte(models.Model):
   source = models.CharField(max_length=300)
-  context = models.TextField()
+  contexte = models.CharField(max_length=84)
+  note = models.TextField()
 
+  def __unicode__(self):
+    return '[ ' + self.contexte + ' ]'
 
+class TermeFr(models.Model):
+  terme = models.CharField(max_length=84)
+  definition = models.TextField()
+  note = models.TextField()
+  contexte = models.ForeignKey(RelTermeAnFr)
+  
+  def __unicode__(self):
+    return '[ ' + self.terme + '(' + self.contexte.contexte.contexte + ') ]'
+	

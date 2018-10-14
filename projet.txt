@@ -2,27 +2,54 @@ Domaine:
       |
       -- Client
               |
-	      -- Fiche Terminologique
-		 - tag
-		     |
-		     -- Tags
-                 - Terme anglais
-                               |
-                               -- Contexte
-                                  - Source
-                 - Terme français
-                               |
-                               -- Contexte
-                                  - Source
-                 - Definition (peut-être vide)
-                 - Date
-                 - Signature
-                 - Remarques/notes (peut-être vide)
+			  -- Fiche Terminologique
+				  - tag
+					 |
+					 -- Tags
+					 - Terme anglais
+								   |
+								   -- Contexte
+									  - Source
+					 - Terme français
+								   |
+								   -- Contexte
+									  - Source
+					 - Definition (peut-être vide)
+					 - Date
+					 - Signature
+					 - Remarques/notes (peut-être vide)
 
 
-Client 1 --- oo Domaine 1 --- oo RelDomFiche oo --- 1 Fiche
-Fiche 1 --- oo RelFicheTag oo --- Tag
+Domaine = secteur d'activité
+Contexte = niveau de langage
 
+Client 1 --- oo Domaine 
+                  1 |
+                    |
+                    | oo
+                TermeAn 1 --- oo TermeFr
+                                  1 |
+		                            |
+		                         oo |
+		                         Contexte
+		                         
+		                         
+Scenario d'utilisation:
+	- Consultation
+	   1. Sélectionne Client
+	   2. Sélectionne Domaine
+	   3. Recherche Terme Anglais par définition et notes 
+	                                -> Affiche autres champs
+	                                -> Permet l'édition (+-edition)
+	   4. Liste Termes Français correspondant pour les différents contextes
+									-> hover affiche synopsis
+	   5. Clique sur Terme Français -> Ouvre la fiche termeFr 
+	                                -> Permet l'édition (+-edition)
+	   6. Pour continuer, retour et aller à 1, 2, 3 ou 5
+	   
+	   
+	   
+	   
 Contexte sera un autre type d'objet -> table
 
 en plus de l'admin django, l'API
