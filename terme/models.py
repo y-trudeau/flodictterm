@@ -48,4 +48,3 @@ class TermeFr(models.Model):
 class RelTermeAnFr(models.Model):
    termeAn = models.ForeignKey(TermeAn)
    contexte = models.ForeignKey(Contexte)
-   termeFr = models.ForeignKey(TermeFr)
