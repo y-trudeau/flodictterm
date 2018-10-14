@@ -27,12 +27,7 @@ class TermeAn(models.Model):
   
   def __unicode__(self):
     return '[ ' + self.terme + ' ]'
- 
-class RelTermeAnFr(models.Model):
-   termeAn = models.ForeignKey(TermeAn)
-   contexte = models.ForeignKey(Contexte)
-   termeFr = models.ForeignKey(TermeFr)
-	
+ 	
 class Contexte(models.Model):
   source = models.CharField(max_length=300)
   contexte = models.CharField(max_length=84)
@@ -50,3 +45,7 @@ class TermeFr(models.Model):
   def __unicode__(self):
     return '[ ' + self.terme + '(' + self.contexte.contexte.contexte + ') ]'
 	
+class RelTermeAnFr(models.Model):
+   termeAn = models.ForeignKey(TermeAn)
+   contexte = models.ForeignKey(Contexte)
+   termeFr = models.ForeignKey(TermeFr)
