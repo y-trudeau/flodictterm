@@ -4,14 +4,14 @@ from django.utils.encoding import python_2_unicode_compatible
 class Client(models.Model):
   nom_client = models.CharField(max_length=84)
   
-  def __unicode__(self):
+  def __src__(self):
     return self.nom_client
   
 class Domaine(models.Model):
   nom_domaine = models.CharField(max_length=84)
   client = models.ForeignKey(Client)
 
-  def __unicode__(self):
+  def __src__(self):
     return self.client.nom_client + '.' + self.nom_domaine
 
 class Tag(models.Model):
