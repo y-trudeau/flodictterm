@@ -1,9 +1,9 @@
 {% if client_list %}
-    <ul>
+    <select name="client">
     {% for Client in client_list %}
-        <li>{{ Client.nom_client }}</li>
+        <option value="{{ Client.id }}">{{ Client.nom_client }}</option>
     {% endfor %}
-    </ul>
+    </select>
 {% else %}
     <p>Aucun client défini.</p>
 {% endif %}
