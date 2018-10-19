@@ -1,0 +1,9 @@
+{% if client_list %}
+    <ul>
+    {% for Client in client_list %}
+        <li>{{ Client.nom_client }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun client défini.</p>
+{% endif %}

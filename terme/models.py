@@ -13,7 +13,7 @@ class Domaine(models.Model):
   client = models.ForeignKey(Client)
 
   def __str__(self):
-    return self.client.nom_client + '.' + self.nom_domaine
+    return self.client.nom_client + '|' + self.nom_domaine
 
 class Tag(models.Model):
   nom_tag = models.CharField(max_length=84)

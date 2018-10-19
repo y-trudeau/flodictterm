@@ -1,6 +1,11 @@
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.http import HttpResponse
+from django.template import loader
+from terme.models import Client
+
+
 # Create your views here.
 
 class InfoView(APIView):
@@ -38,3 +43,12 @@ class InfoView(APIView):
         }
         return Response(content)
 
+
+
+def index(request):
+    client_list = Question.objects.order_by('nom_client')[:5]
+    template = loader.get_template('index.html')
+    context = {
+        'client_list': client_list,
+    }
+    return HttpResponse(template.render(context, request))
