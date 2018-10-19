@@ -1,5 +1,8 @@
 from django.db import models
+from __future__ import unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
 
+@python_2_unicode_compatible
 class Client(models.Model):
   nom_client = models.CharField(max_length=84)
   
