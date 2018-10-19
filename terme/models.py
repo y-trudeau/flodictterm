@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 
 class Client(models.Model):
   nom_client = models.CharField(max_length=84)
@@ -17,7 +16,7 @@ class Domaine(models.Model):
 class Tag(models.Model):
   nom_tag = models.CharField(max_length=84)
 
-  def __unicode__(self):
+  def __src__(self):
     return '[ ' + self.nom_tag + ' ]'
 
 class TermeAn(models.Model):
@@ -26,7 +25,7 @@ class TermeAn(models.Model):
   note = models.TextField()
   domaine = models.ForeignKey(Domaine)
   
-  def __unicode__(self):
+  def __str__(self):
     return '[ ' + self.terme + ' ]'
  	
 class Contexte(models.Model):
@@ -34,7 +33,7 @@ class Contexte(models.Model):
   contexte = models.CharField(max_length=84)
   note = models.TextField()
 
-  def __unicode__(self):
+  def __str__(self):
     return '[ ' + self.contexte + ' ]'
 
 class RelTermeAnFr(models.Model):
@@ -47,6 +46,6 @@ class TermeFr(models.Model):
   note = models.TextField()
   contexte = models.ForeignKey(RelTermeAnFr)
   
-  def __unicode__(self):
+  def __str__(self):
     return '[ ' + self.terme + '(' + self.contexte.contexte.contexte + ') ]'
 	
