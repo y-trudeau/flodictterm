@@ -46,7 +46,7 @@ class InfoView(APIView):
 
 
 def index(request):
-    client_list = Question.objects.order_by('nom_client')[:5]
+    client_list = Client.objects.order_by('nom_client')[:5]
     template = loader.get_template('index.html')
     context = {
         'client_list': client_list,
