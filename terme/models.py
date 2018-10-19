@@ -5,20 +5,20 @@ from django.utils.encoding import python_2_unicode_compatible
 class Client(models.Model):
   nom_client = models.CharField(max_length=84)
   
-  def __src__(self):
+  def __str__(self):
     return self.nom_client
   
 class Domaine(models.Model):
   nom_domaine = models.CharField(max_length=84)
   client = models.ForeignKey(Client)
 
-  def __src__(self):
+  def __str__(self):
     return self.client.nom_client + '.' + self.nom_domaine
 
 class Tag(models.Model):
   nom_tag = models.CharField(max_length=84)
 
-  def __src__(self):
+  def __str__(self):
     return '[ ' + self.nom_tag + ' ]'
 
 class TermeAn(models.Model):
