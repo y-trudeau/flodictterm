@@ -24,6 +24,7 @@ $( "select" )
     alert("Acces a: " + json_url);
     $.getJSON(json_url, function( data ) {
       $.each( data, function( key, domaine ) {
+        alert("key = " + key + " domaine = " + domaine);
         str += domaine.id + ":" + domaine.nom_domaine + "\n";
       });
     });
