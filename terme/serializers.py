@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from terme.models import Client, Domaine, Tag, Terme, Context
+from terme.models import Client, Domaine, Tag, TermeAn, TermeFr, Context, RelTermAnFr
 
 class ClientSerializer(serializers.ModelSerializer):
     """Serializer pour la classe Client."""
