@@ -24,9 +24,8 @@ $( "select" )
       $.each( data, function( key, domaine ) {
         str += domaine.id + ":" + domaine.nom_domaine + "\n";
       });
-    })();
-  
-     $( "div" ).text( str );
-  })
+    });
+    $( "div" ).text( str );
+  })()
   .change();
 </script>
