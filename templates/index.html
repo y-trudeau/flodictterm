@@ -1,7 +1,7 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 {% if client_list %}
-    <select id="selclient" name="client">
+Client: <select id="selclient" name="client">
     {% for Client in client_list %}
         <option value="{{ Client.id }}">{{ Client.nom_client }}</option>
     {% endfor %}
@@ -9,6 +9,7 @@
 {% else %}
     <p>Aucun client défini.</p>
 {% endif %}
+Domaine: <select id="seldomaine" name="domaine"></select>
 <div></div>
 <script>
 $( "#selclient" )
@@ -31,5 +32,5 @@ $( "#selclient" )
       $( "div" ).text( str );
     });
    });
-//  .change();
+$( "#selclient" ).change();
 </script>
