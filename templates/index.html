@@ -27,9 +27,9 @@ $( "select" )
         console.log("key = " + key + " id = " + domaine.id + " domaine = " + domaine.nom_domaine);
         str += domaine.id + ":" + domaine.nom_domaine + "\n";
       });
+      console.log(str);
+      $( "div" ).text( str );
     });
-    console.log(str);
-    $( "div" ).text( str );
-  });
+   });
 //  .change();
 </script>
