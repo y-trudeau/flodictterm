@@ -13,11 +13,11 @@ from rest_framework import status
 
 
 class DomaineParClient(APIView):
-    def get(self, client):
+	def get(self, client):
 		try:
-            return Domaine.objects.filter(client=client)
-        except Snippet.DoesNotExist:
-            raise Http404
+			return Domaine.objects.filter(client=client)
+		except Domaine.DoesNotExist:
+			raise Http404
 	
     def get(self, client, format=None):
         domaines = Domaine.objects.filter(client=client)
