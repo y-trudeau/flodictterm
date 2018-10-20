@@ -11,18 +11,19 @@ Client: <select id="selclient" name="client">
 {% endif %}
 Domaine: <select id="seldomaine" name="domaine"></select>
 <div></div>
+
 <script>
 $( "#selclient" )
   .change(function () {
     var str = "";
     var client = "";
     $( "select option:selected" ).each(function() {
-      str += $( this ).val() + ":" + $( this ).text() + "<br/>";
+      str += $( this ).val() + " :" + $( this ).text() + "<br/>";
       client = $( this ).val();
     });
     
     json_url = "terme/Domaine/" + client + "/";
-    //alert("Acces a: " + json_url);
+    console.log("Acces a: " + json_url);
     $.getJSON(json_url, function( data ) {
       $.each( data, function( key, domaine ) {
         console.log("key = " + key + " id = " + domaine.id + " domaine = " + domaine.nom_domaine);
