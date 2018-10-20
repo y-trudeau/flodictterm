@@ -15,7 +15,7 @@ $( "select" )
   .change(function () {
     var str = "";
     $( "select option:selected" ).each(function() {
-      str += $( this ).val() + ":" + $( this ).text() + "<p>";
+      str += $( this ).val() + ":" + $( this ).text() + "\n";
     });
     $( "div" ).text( str );
   })
