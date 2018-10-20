@@ -20,7 +20,9 @@ $( "select" )
       client = $( this ).val();
     });
     
-    $.getJSON( "terme/Domaine/" + client + "/", function( data ) {
+    json_url = "terme/Domaine/" + client + "/";
+    alert("Acces a: " + json_url);
+    $.getJSON(json_url, function( data ) {
       $.each( data, function( key, domaine ) {
         str += domaine.id + ":" + domaine.nom_domaine + "\n";
       });
