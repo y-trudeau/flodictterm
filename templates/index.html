@@ -16,7 +16,7 @@ $( "select" )
     var str = "";
     var client = "";
     $( "select option:selected" ).each(function() {
-      str += $( this ).val() + ":" + $( this ).text() + "\n";
+      str += $( this ).val() + ":" + $( this ).text() + "<br/>";
       client = $( this ).val();
     });
     
