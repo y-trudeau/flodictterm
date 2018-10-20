@@ -40,7 +40,7 @@ class RelTermeAnFrSerializer(serializers.ModelSerializer):
     """Serializer pour la classe RelTermAnFr."""
 
     class Meta:
-        model = RelTermAnFr
+        model = RelTermeAnFr
         fields = ('id', 'termeAn','contexte','termeFr')
 
 class ContexteSerializer(serializers.ModelSerializer):
