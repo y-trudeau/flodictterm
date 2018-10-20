@@ -21,10 +21,10 @@ $( "select" )
     });
     
     json_url = "terme/Domaine/" + client + "/";
-    alert("Acces a: " + json_url);
+    //alert("Acces a: " + json_url);
     $.getJSON(json_url, function( data ) {
       $.each( data, function( key, domaine ) {
-        alert("key = " + key + " domaine = " + domaine.text());
+        console_log("key = " + key + " domaine = " + item.nom_domaine);
         str += domaine.id + ":" + domaine.nom_domaine + "\n";
       });
     });
