@@ -20,12 +20,12 @@ $( "select" )
       client = $( this ).val();
     });
     
-//    $.getJSON( "terme/Domaine/" + client + "/", function( data ) {
-//      $.each( data, function( key, domaine ) {
-//        str += domaine.id + ":" + domaine.nom_domaine + "\n";
-//      });
-//    });
+    $.getJSON( "terme/Domaine/" + client + "/", function( data ) {
+      $.each( data, function( key, domaine ) {
+        str += domaine.id + ":" + domaine.nom_domaine + "\n";
+      });
+    });
     $( "div" ).text( str );
-  })()
-  .change();
+  });
+//  .change();
 </script>
