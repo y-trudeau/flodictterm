@@ -19,7 +19,7 @@ class DomaineParClient(APIView):
 		except Domaine.DoesNotExist:
 			raise Http404
 	
-    def get(self, client, format=None):
-        domaines = Domaine.objects.filter(client=client)
-        serializer = DomaineSerializer(domaines, many=True)
-        return Response(serializer.data)
+	def get(self, client, format=None):
+		domaines = Domaine.objects.filter(client=client)
+		serializer = DomaineSerializer(domaines, many=True)
+		return Response(serializer.data)
