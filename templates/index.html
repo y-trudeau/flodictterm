@@ -27,6 +27,10 @@ $( "#selclient" )
       $.each( data, function( key, domaine ) {
         console.log("key = " + key + " id = " + domaine.id + " domaine = " + domaine.nom_domaine);
         str += domaine.id + ":" + domaine.nom_domaine + "\n";
+        $('#seldomaine').append($('<option>', {
+            value: domaine.id,
+            text: domaine.now_domaine
+         }));
       });
       console.log(str);
       $( "div" ).text( str );
