@@ -14,10 +14,19 @@
 $( "select" )
   .change(function () {
     var str = "";
+    var client = "";
     $( "select option:selected" ).each(function() {
       str += $( this ).val() + ":" + $( this ).text() + "\n";
+      client = $( this ).val();
     });
-    $( "div" ).text( str );
+    
+    $.getJSON( "terme/Domaine/" + client + "/", function( data ) {
+      $.each( data, function( key, domaine ) {
+        str += domaine.id + ":" + domaine.nom_domaine + "\n";
+      });
+    })();
+  
+     $( "div" ).text( str );
   })
   .change();
 </script>
