@@ -25,13 +25,11 @@ $( "#selclient" )
     json_url = "terme/Domaine/" + client + "/";
     console.log("Acces a: " + json_url);
     $.getJSON(json_url, function( data ) {
+      $('#seldomaine option').remove();
       $.each( data, function( key, domaine ) {
         console.log("json: key = " + key + " id = " + domaine.id + " domaine = " + domaine.nom_domaine);
         str += domaine.id + ":" + domaine.nom_domaine + "\n";
-        $('#seldomaine').append($('<option>', {
-            value: domaine.id,
-            text: domaine.now_domaine
-         }));
+        $('#seldomaine').append('<option value="' + domaine.id + '">' + domaine.nom_domaine + '</option>');
       });
       console.log(str);
       $( "div" ).text( str );
