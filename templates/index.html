@@ -17,8 +17,8 @@ $( "#selclient" )
   .change(function () {
     var str = "";
     var client = "";
-    $( "select option:selected" ).each(function() {
-      str += $( this ).val() + " :" + $( this ).text() + "<br/>";
+    $( "#selclient option:selected" ).each(function() {
+      str += $( this ).val() + " :" + $( this ).text() ;
       client = $( this ).val();
     });
     
@@ -26,7 +26,7 @@ $( "#selclient" )
     console.log("Acces a: " + json_url);
     $.getJSON(json_url, function( data ) {
       $.each( data, function( key, domaine ) {
-        console.log("key = " + key + " id = " + domaine.id + " domaine = " + domaine.nom_domaine);
+        console.log("json: key = " + key + " id = " + domaine.id + " domaine = " + domaine.nom_domaine);
         str += domaine.id + ":" + domaine.nom_domaine + "\n";
         $('#seldomaine').append($('<option>', {
             value: domaine.id,
