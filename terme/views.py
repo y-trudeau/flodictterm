@@ -2,8 +2,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
-from terme.models import Client, Domaine
-from terme.serializers import ClientSerializer, DomaineSerializer
+from terme.models import Client, Domaine, TermeAn
+from terme.serializers import ClientSerializer, DomaineSerializer, TermeAnSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
