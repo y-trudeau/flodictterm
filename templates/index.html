@@ -10,6 +10,10 @@ Client: <select id="selclient" name="client">
     <p>Aucun client défini.</p>
 {% endif %}
 Domaine: <select id="seldomaine" name="domaine"></select>
+<p>Termes:</p>
+<p>
+<select id="termeAn" name="TermeAnglais" size=6 style="width: 200px;">
+</p>
 <div></div>
 
 <script>
@@ -22,13 +26,13 @@ $( "#selclient" )
       client = $( this ).val();
     });
     
-    json_url = "terme/Domaine/" + client + "/";
+    json_url = "terme/Domaine/parClient/" + client + "/";
     console.log("Acces a: " + json_url);
     $.getJSON(json_url, function( data ) {
       $('#seldomaine option').remove();
       $.each( data, function( key, domaine ) {
         console.log("json: key = " + key + " id = " + domaine.id + " domaine = " + domaine.nom_domaine);
-        str += domaine.id + ":" + domaine.nom_domaine + "\n";
+        //str += domaine.id + ":" + domaine.nom_domaine + "\n";
         $('#seldomaine').append('<option value="' + domaine.id + '">' + domaine.nom_domaine + '</option>');
       });
       console.log(str);
@@ -36,4 +40,24 @@ $( "#selclient" )
     });
    });
 $( "#selclient" ).change();
+$( "#seldomaine" )
+  .change(function () {
+    var str = "";
+    var domaine = "";
+    $( "#selclient option:selected" ).each(function() {
+      domaine = $( this ).val();
+    });
+    
+    json_url = "terme/parDomaine/" + domaine + "/";
+    console.log("Acces a: " + json_url);
+    $.getJSON(json_url, function( data ) {
+      $('#termeAn option').remove();
+      $.each( data, function( key, terme ) {
+        console.log("json: key = " + key + " id = " + terme.id + " terme = " + terme.terme);
+        //str += domaine.id + ":" + domaine.nom_domaine + "\n";
+        $('#termeAn').append('<option value="' + terme.id + '">' + terme.terme + '</option>');
+      });
+      //console.log(str);
+    });
+   });
 </script>
