@@ -44,7 +44,7 @@ $( "#seldomaine" )
   .change(function () {
     var str = "";
     var domaine = "";
-    $( "#selclient option:selected" ).each(function() {
+    $( "#seldomaine option:selected" ).each(function() {
       domaine = $( this ).val();
     });
     
@@ -54,7 +54,7 @@ $( "#seldomaine" )
       $('#termeAn option').remove();
       $.each( data, function( key, terme ) {
         console.log("json: key = " + key + " id = " + terme.id + " terme = " + terme.terme);
-        //str += domaine.id + ":" + domaine.nom_domaine + "\n";
+        str += terme.id + ":" + terme.terme + "\n";
         $('#termeAn').append('<option value="' + terme.id + '">' + terme.terme + '</option>');
       });
       //console.log(str);
