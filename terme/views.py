@@ -35,3 +35,7 @@ class TermeParDomaine(APIView):
 		termes = TermeAn.objects.filter(domaine=domaine)
 		serializer = TermeAnSerializer(termes, many=True)
 		return Response(serializer.data)
+
+class TermeParTermAn(APIView):
+    def get(self, request, termean):
+        return Response({'some': 'data'})

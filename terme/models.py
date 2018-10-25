@@ -31,23 +31,20 @@ class TermeAn(models.Model):
     return '[ ' + self.terme + ' ]'
  	
 class Contexte(models.Model):
-  source = models.CharField(max_length=300)
   contexte = models.CharField(max_length=84)
   note = models.TextField()
 
   def __str__(self):
     return '[ ' + self.contexte + ' ]'
 
-class RelTermeAnFr(models.Model):
-   termeAn = models.ForeignKey(TermeAn)
-   contexte = models.ForeignKey(Contexte)
-
 class TermeFr(models.Model):
   terme = models.CharField(max_length=84)
   definition = models.TextField()
   note = models.TextField()
-  contexte = models.ForeignKey(RelTermeAnFr)
+  contexte = models.ForeignKey(Contexte)
+  source = models.CharField(max_length=300)
+  termeAn = models.ForeignKey(TermeAn)
   
   def __str__(self):
-    return '[ ' + self.terme + '(' + self.contexte.contexte.contexte + ') ]'
+    return '[ ' + self.terme + '/' + self.termeAn.terme ' (' + self.contexte.contexte + ') ]'
 	
