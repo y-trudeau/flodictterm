@@ -14,7 +14,7 @@ Domaine: <select id="seldomaine" name="domaine"></select>
 <p>
 <select id="termeAn" name="TermeAnglais" size=6 style="width: 200px;">
 </p>
-<div></div>
+<div id="divout"></div>
 
 <script>
 $( "#selclient" )
@@ -36,7 +36,7 @@ $( "#selclient" )
         $('#seldomaine').append('<option value="' + domaine.id + '">' + domaine.nom_domaine + '</option>');
       });
       console.log(str);
-      $( "div" ).text( str );
+      $( "#divout" ).append( str );
     });
    });
 $( "#selclient" ).change();
@@ -60,4 +60,6 @@ $( "#seldomaine" )
       //console.log(str);
     });
    });
+$( "#divout" ).append( '<p>Ligne 1</p>' );
+$( "#divout" ).append( '<p>Ligne 2</p>' );
 </script>
