@@ -22,7 +22,7 @@ Domaine: <select id="seldomaine" name="domaine"></select>
 </p>
 
 <p>Résultats:</p>
-<div id="divout">divout</div>
+<div id="divout"></div>
  
 <script>
 $( "#selclient" )
@@ -77,7 +77,7 @@ $( "#termeAn" )
       termeAn = $( this ).val();
     });
     console.log('on écrit dans #divout:' + termeAn );
-    var nouvLigne = $('<p><a href="terme/test" >' + termeAn + '</a> un terme vraiment important</p>');
+    var nouvLigne = $('<a href="terme/test" >' + termeAn + '</a> un terme vraiment important');
     $( "#divout" ).append( nouvLigne );
    });
 
