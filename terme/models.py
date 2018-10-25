@@ -46,5 +46,5 @@ class TermeFr(models.Model):
   termeAn = models.ForeignKey(TermeAn)
   
   def __str__(self):
-    return '[ ' + self.terme + '/' + self.termeAn.terme ' (' + self.contexte.contexte + ') ]'
+    return '[ ' + self.terme + '/' + self.termeAn.terme + ' (' + self.contexte.contexte + ') ]'
 	
