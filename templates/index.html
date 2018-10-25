@@ -1,4 +1,10 @@
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Démo interface</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
 
 {% if client_list %}
 Client: <select id="selclient" name="client">
@@ -36,7 +42,7 @@ $( "#selclient" )
         $('#seldomaine').append('<option value="' + domaine.id + '">' + domaine.nom_domaine + '</option>');
       });
       console.log(str);
-      $( "#divout" ).append( str );
+      $( "#divout" ).append( '<p>Résultats:</p> );
     });
    });
 $( "#selclient" ).change();
@@ -63,7 +69,16 @@ $( "#seldomaine" )
 
 $( "#termeAn" )
   .change(function () {
-    $( "#divout" ).append( '<p>Ligne 1</p>' );
-    $( "#divout" ).append( '<p>Ligne 2</p>' );
-});
+    console.log('and la methode change de termeAn');
+    var termeAn = "";
+    $( "#termeAn option:selected" ).each(function() {
+      termeAn = $( this ).val();
+    });
+    console.log('on écrit dans #divout:' + termeAn );
+    $( "#divout" ).append( '<p><b>' + termeAn + '</b> un terme vraiment important</p>' );
+    $( "#divout" ).append( '<p>Bon choix</p>' );
+   });
+
 </script>
+</body>
+</html>
