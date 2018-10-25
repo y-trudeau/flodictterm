@@ -60,6 +60,10 @@ $( "#seldomaine" )
       //console.log(str);
     });
    });
-$( "#divout" ).append( '<p>Ligne 1</p>' );
-$( "#divout" ).append( '<p>Ligne 2</p>' );
+
+$( "#termeAn" )
+  .change(function () {
+    $( "#divout" ).append( '<p>Ligne 1</p>' );
+    $( "#divout" ).append( '<p>Ligne 2</p>' );
+});
 </script>
