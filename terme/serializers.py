@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from terme.models import Client, Domaine, Tag, TermeAn, TermeFr, Contexte, RelTermeAnFr
+from terme.models import Client, Domaine, Tag, TermeAn, TermeFr, Contexte
 
 class ClientSerializer(serializers.ModelSerializer):
     """Serializer pour la classe Client."""
@@ -35,13 +35,6 @@ class TermeFrSerializer(serializers.ModelSerializer):
     class Meta:
         model = TermeAn
         fields = ('id', 'terme','definition','note','contexte')
-
-class RelTermeAnFrSerializer(serializers.ModelSerializer):
-    """Serializer pour la classe RelTermAnFr."""
-
-    class Meta:
-        model = RelTermeAnFr
-        fields = ('id', 'termeAn','contexte','termeFr')
 
 class ContexteSerializer(serializers.ModelSerializer):
     """Serializer pour la classe Tag."""
