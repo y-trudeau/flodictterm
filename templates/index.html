@@ -75,8 +75,8 @@ $( "#termeAn" )
       termeAn = $( this ).val();
     });
     console.log('on écrit dans #divout:' + termeAn );
-    $( "#divout" ).append( '<p><b>' + termeAn + '</b> un terme vraiment important</p>' );
-    $( "#divout" ).append( '<p>Bon choix</p>' );
+    var nouvLigne = $('<p><b>' + termeAn + '</b> un terme vraiment important</p>');
+    $( "#divout" ).append( nouvLigne );
    });
 
 </script>
