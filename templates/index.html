@@ -18,7 +18,7 @@ Client: <select id="selclient" name="client">
 Domaine: <select id="seldomaine" name="domaine"></select>
 <p>Termes:</p>
 <p>
-<select id="termeAn" name="TermeAnglais" size=6 style="width: 200px;">
+<select id="termeAn" name="TermeAnglais" size=6 style="width: 200px;"></select>
 </p>
 
 <p>Résultats:</p>
@@ -44,7 +44,7 @@ $( "#selclient" )
         $('#seldomaine').append('<option value="' + domaine.id + '">' + domaine.nom_domaine + '</option>');
       });
       console.log(str);
-      $( "#divout" ).append( lres );
+      //$( "#divout" ).append( lres );
     });
    });
 $( "#selclient" ).change();
