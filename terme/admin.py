@@ -1,4 +1,4 @@
-from terme.models import Client, Domaine, TermeAn, TermeFr, Tag, Contexte, RelTermeAnFr
+from terme.models import Client, Domaine, TermeAn, TermeFr, Tag, Contexte
 from django.contrib import admin
 
 admin.site.register(Client)
