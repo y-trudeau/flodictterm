@@ -23,8 +23,8 @@ class Tag(models.Model):
 
 class TermeAn(models.Model):
   terme = models.CharField(max_length=84)
-  definition = models.TextField()
-  note = models.TextField()
+  definition = models.TextField(null=True)
+  note = models.TextField(null=True)
   domaine = models.ForeignKey(Domaine)
   
   def __str__(self):
@@ -38,11 +38,11 @@ class Contexte(models.Model):
     return '[ ' + self.contexte + ' ]'
 
 class TermeFr(models.Model):
-  terme = models.CharField(max_length=84)
-  definition = models.TextField()
-  note = models.TextField()
+  terme = models.CharField(max_length=84, default='')
+  definition = models.TextField(null=True)
+  note = models.TextField(null=True)
   contexte = models.ForeignKey(Contexte)
-  source = models.CharField(max_length=300)
+  source = models.CharField(max_length=300,null=True)
   termeAn = models.ForeignKey(TermeAn)
   
   def __str__(self):
