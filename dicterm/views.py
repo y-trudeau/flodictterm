@@ -46,9 +46,11 @@ class InfoView(APIView):
 
 
 def index(request):
-    client_list = Client.objects.order_by('nom_client')[:5]
+    client_list = Client.objects.order_by('nom_client')
+    contexte_list = Contexte.objects.order_by('contexte')
     template = loader.get_template('index.html')
     context = {
         'client_list': client_list,
+        'contexte_list': contexte_list,
     }
     return HttpResponse(template.render(context, request))

@@ -29,19 +29,13 @@ class TermeAn(models.Model):
   
   def __str__(self):
     return '[ ' + self.terme + ' ]'
- 	
-class Contexte(models.Model):
-  contexte = models.CharField(max_length=84)
-  note = models.TextField()
 
-  def __str__(self):
-    return '[ ' + self.contexte + ' ]'
 
 class TermeFr(models.Model):
   terme = models.CharField(max_length=84, default='')
   definition = models.TextField(null=True)
   note = models.TextField(null=True)
-  contexte = models.ForeignKey(Contexte)
+  contexte = models.CharField(max_length=300,null=True)
   source = models.CharField(max_length=300,null=True)
   termeAn = models.ForeignKey(TermeAn)
   

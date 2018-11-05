@@ -11,7 +11,18 @@ from rest_framework import status
 
 # Create your views here.
 
-
+class ContexteListe(APIView):
+	def get(self, request):
+		try:
+			return Contexte.objects.all()
+		except Domaine.DoesNotExist:
+			raise Http404
+	
+	def get(self, request, format=None):
+		contextes = Contexte.objects.all()
+		serializer = ContexteSerializer(contextes, many=True)
+		return Response(serializer.data)
+    
 class DomaineParClient(APIView):
 	def get(self, request, client):
 		try:
@@ -39,3 +50,4 @@ class TermeParDomaine(APIView):
 class TermeParTermAn(APIView):
     def get(self, request, termean):
         return Response({'some': 'data'})
+
