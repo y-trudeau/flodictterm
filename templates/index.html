@@ -1,13 +1,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Démo interface</title>
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <title>Edit</title>
+  <link rel="stylesheet" href="static/css/bootstrap.min.css" >
+  <script src="static/js/jquery-3.3.1.min.js"></script>
+	<script src="static/js/bootstrap.bundle.js"></script>
 </head>
 <body>
 
 {% if client_list %}
-Client: <select id="selclient" name="client">
+		Client: <select class="custom-select d-block w-100" id="selclient" name="client">
     {% for Client in client_list %}
         <option value="{{ Client.id }}">{{ Client.nom_client }}</option>
     {% endfor %}
@@ -15,14 +17,32 @@ Client: <select id="selclient" name="client">
 {% else %}
     <p>Aucun client défini.</p>
 {% endif %}
-Domaine: <select id="seldomaine" name="domaine"></select>
+Domaine: <select class="custom-select d-block w-100" id="seldomaine" name="domaine"></select>
+
+
 <p>Termes:</p>
 <p>
-<select id="termeAn" name="TermeAnglais" size=6 style="width: 200px;"></select>
+<select class="custom-select d-block w-100" id="termeAn" name="TermeAnglais" size=6 style="width: 200px;"></select>
 </p>
 
 <p>Résultats:</p>
 <div id="divout"></div>
+<div id="divbouton"></div>
+<div class="easyui-dialog" style="width:600px;height:300px"
+		data-options="title:'My Dialog',modal:true,
+			buttons:[{
+				text:'Save',
+				handler:function(){...}
+			},{
+				text:'Close',
+				handler:function(){...}
+			}]">
+	Dialog Content.
+</div>
+
+<div id="editTerme" class="easyui-window" title="Modal Window" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:500px;height:200px;padding:10px;">
+    The window content.
+</div>
  
 <script>
 $( "#selclient" )
@@ -33,7 +53,9 @@ $( "#selclient" )
       str += $( this ).val() + " :" + $( this ).text() ;
       client = $( this ).val();
     });
-    
+    $( "#divout" ).empty();
+		$( "#termeAn" ).empty();
+		
     json_url = "terme/Domaine/parClient/" + client + "/";
     console.log("Acces a: " + json_url);
     $.getJSON(json_url, function( data ) {
@@ -47,6 +69,7 @@ $( "#selclient" )
       //$( "#divout" ).append( lres );
     });
    });
+   
 $( "#selclient" ).change();
 $( "#seldomaine" )
   .change(function () {
@@ -55,6 +78,8 @@ $( "#seldomaine" )
     $( "#seldomaine option:selected" ).each(function() {
       domaine = $( this ).val();
     });
+    $( "#divout" ).empty(); 
+    $( "#termeAn" ).empty();   
     
     json_url = "terme/parDomaine/" + domaine + "/";
     console.log("Acces a: " + json_url);
@@ -76,11 +101,64 @@ $( "#termeAn" )
     $( "#termeAn option:selected" ).each(function() {
       termeAn = $( this ).val();
     });
-    console.log('on écrit dans #divout:' + termeAn );
-    var nouvLigne = $('<a href="terme/test" >' + termeAn + '</a> un terme vraiment important');
-    $( "#divout" ).append( nouvLigne );
+    console.log('on va chercher' + termeAn );
+    //$('#divout').remove();
+    $( "#divout" ).empty();
+    $( "#divbouton" ).empty();
+    json_url = "terme/parTermeAn/" + termeAn + "/";
+    $.getJSON(json_url, function( data ) {
+      $.each( data, function( key, terme ) {
+        console.log("json: key = " + key + " id = " + terme.id + " terme = " + terme.terme);
+        //var nouvLigne = '<bf>' + terme.terme + '</bf>: ' + terme.definition + ' (' + terme.contexte +') <a hfref="' + terme.source + '">source</a>';
+        
+        //$( "<p></p><bf>" + terme.terme + "</bf>: " + terme.definition + " (" + terme.contexte +") <a hfref='" + terme.source + "'>source</a></p>" ).appendTo( "#divout" );
+        
+        var spanTerme = document.createElement("SPAN");
+        var boldTerme = document.createElement("B");
+            var bText = document.createTextNode( terme.terme );
+            boldTerme.appendChild(bText);
+        spanTerme.appendChild(boldTerme); 
+        
+        var tnDef = document.createTextNode( ": " + terme.definition + " (" + terme.contexte +") ");
+        spanTerme.appendChild(tnDef);
+        
+        var aLink = document.createElement("A");
+            aLink.setAttribute('href', terme.source);
+	        var txtLien = document.createTextNode( "source" );
+            aLink.appendChild(txtLien);
+        spanTerme.appendChild(aLink);
+        
+        var tnEspace = document.createTextNode( " " );
+        spanTerme.appendChild(tnEspace);
+        
+        var aEdit = document.createElement("A");
+            aEdit.setAttribute('href', 'terme/edit/' + terme.id);
+	        var imgEdit = document.createElement( "IMG" );
+            imgEdit.setAttribute('src','static/icons/16/gtk-edit.svg');
+            aEdit.appendChild(imgEdit);
+        spanTerme.appendChild(aEdit);
+         
+        $( "#divout" ).append(spanTerme);
+        var lb = document.createElement("BR");
+        $( "#divout" ).append(lb);
+        
+      });
+      //console.log(str);
    });
+    var lb = document.createElement("BR");
+    $( "#divbouton" ).append(lb);
 
+    var aAdd = document.createElement("A");
+    aAdd.setAttribute('href', 'terme/nouveau/termean/' + termeAn );
+      var imgAdd = document.createElement( "IMG" );
+        imgAdd.setAttribute('src','static/icons/16/list-add.svg');
+      aAdd.appendChild(imgAdd);
+    $( "#divbouton" ).append(aAdd);
+
+  });
+   
+   
+// clientpagination est très intéressant
 </script>
 </body>
 </html>

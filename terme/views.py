@@ -2,8 +2,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
-from terme.models import Client, Domaine, TermeAn
-from terme.serializers import ClientSerializer, DomaineSerializer, TermeAnSerializer
+from terme.models import Client, Domaine, TermeAn, TermeFr
+from terme.serializers import ClientSerializer, DomaineSerializer, TermeAnSerializer, TermeFrSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -37,5 +37,13 @@ class TermeParDomaine(APIView):
 		return Response(serializer.data)
 
 class TermeParTermAn(APIView):
-    def get(self, request, termean):
-        return Response({'some': 'data'})
+	def get(self, request, termean):
+		try:
+			return TermeFr.objects.filter(termeAn=termean)
+		except TermeFr.DoesNotExist:
+			raise Http404
+	
+	def get(self, request, termean, format=None):
+		termes = TermeFr.objects.filter(termeAn=termean)
+		serializer = TermeFrSerializer(termes, many=True)
+		return Response(serializer.data)

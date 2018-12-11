@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Modal Window - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="demo.css">
+	<script type="text/javascript" src="../jquery.min.js"></script>
+	<script type="text/javascript" src="../jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>Modal Window</h2>
+	<p>Click the open button below to open the modal window.</p>
+	<div style="margin:20px 0;">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('open')">Open</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('close')">Close</a>
+	</div>
+	<div id="w" class="easyui-window" title="Modal Window" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:500px;height:200px;padding:10px;">
+		<div id="data"></div>
+	</div>
+
+<script>
+	$('#w').on('visible', function () {
+        window.location.reload(true);
+        var t='bonjour'
+        var spanTerme = document.createElement("SPAN");
+        var boldTerme = document.createElement("B");
+        var bText = document.createTextNode( t );
+        boldTerme.appendChild(bText);
+        spanTerme.appendChild(boldTerme);
+        $( "#data" ).append(spanTerme);
+    })
+       $('#w').on('hidden', function () {
+        window.location.reload(true);
+    })
+</script>
+
+
+</body>
+</html>
