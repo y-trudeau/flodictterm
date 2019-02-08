@@ -17,6 +17,11 @@
 {% else %}
     <p>Aucun client défini.</p>
 {% endif %}
+<a data-clientid=" " data-toggle="modal" data-target="#editionClientModal" id="ClientEdite" ><img src="static/icons/16/gtk-edit.svg"></a>
+<a data-clientid=" " data-toggle="modal" data-target="#editionClientModal" id="ClientAjout" ><img src="static/icons/16/list-add.svg"></a>
+<a data-clientid=" " data-toggle="modal" data-target="#editionClientModal" id="ClientSupprime" ><img src="static/icons/16/list-remove.svg"></a>
+
+
 Domaine: <select class="custom-select d-block w-100" id="seldomaine" name="domaine"></select>
 
 
@@ -40,10 +45,76 @@ Domaine: <select class="custom-select d-block w-100" id="seldomaine" name="domai
 	Dialog Content.
 </div>
 
-<div id="editTerme" class="easyui-window" title="Modal Window" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:500px;height:200px;padding:10px;">
-    The window content.
+<div class="modal fade" id="editionClientModal" tabindex="-1" role="dialog" aria-labelledby="editionClientModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editionClientModalLabel">Édition d'un client</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" id="formClient" >
+					<div class="form-hidden">
+						<input type="hidden" class="form-control" name="id" id="clientId" >
+					</div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nom:</label>
+            <input type="text" class="form-control" name="nom_client" id="nom_client" >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button id="formClient_submit" type="button" class="btn btn-primary" data-dismiss="modal"  >Sauvegarder</button>
+      </div>
+    </div>
+  </div>
 </div>
- 
+
+<div class="modal fade" id="editionTermeModal" tabindex="-1" role="dialog" aria-labelledby="editionTermeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editionTermeModalLabel">Édition d'un terme</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+           <input type="hidden" class="form-control" id="termeId">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Anglais:</label>
+            <input type="text" class="form-control" id="termeAnglais" readonly>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Français:</label>
+            <input type="text" class="form-control" id="termeFrancais">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Contexte:</label>
+            <input type="text" class="form-control" id="termeContexte">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Source:</label>
+            <input type="text" class="form-control" id="termeSource">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Définition:</label>
+            <textarea class="form-control" id="termeDefinition"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 $( "#selclient" )
   .change(function () {
@@ -53,9 +124,16 @@ $( "#selclient" )
       str += $( this ).val() + " :" + $( this ).text() ;
       client = $( this ).val();
     });
+    console.log('Défini data-clientid des boutons à:' + client);
+    $( "#ClientEdite" ).attr('data-clientid',client);
+    console.log('clientid du bouton edite = ' + $( "#ClientEdite" ).data('data-clientid'));
+    $( "#ClientAjout" ).attr('data-clientid',client);
+    console.log('clientid du bouton ajout = ' + $( "#ClientAjout" ).attr('data-clientid'));
+    $( "#ClientSupprime" ).attr('data-clientid',client);
+    
     $( "#divout" ).empty();
-		$( "#termeAn" ).empty();
-		
+    $( "#termeAn" ).empty();
+
     json_url = "terme/Domaine/parClient/" + client + "/";
     console.log("Acces a: " + json_url);
     $.getJSON(json_url, function( data ) {
@@ -123,19 +201,24 @@ $( "#termeAn" )
         spanTerme.appendChild(tnDef);
         
         var aLink = document.createElement("A");
-            aLink.setAttribute('href', terme.source);
-	        var txtLien = document.createTextNode( "source" );
-            aLink.appendChild(txtLien);
+        aLink.setAttribute('href', terme.source);
+        var txtLien = document.createTextNode( "source" );
+        aLink.appendChild(txtLien);
         spanTerme.appendChild(aLink);
         
         var tnEspace = document.createTextNode( " " );
         spanTerme.appendChild(tnEspace);
-        
-        var aEdit = document.createElement("A");
-            aEdit.setAttribute('href', 'terme/edit/' + terme.id);
-	        var imgEdit = document.createElement( "IMG" );
-            imgEdit.setAttribute('src','static/icons/16/gtk-edit.svg');
-            aEdit.appendChild(imgEdit);
+
+  //      var button='<button class="btn btn-primary" data-termid='+terme.id+' data-toggle=modal data-target=editionTermeModal>Édition</button>&nbsp;';
+  //      $("#textfile-buttons").append(button);        
+        var aEdit = document.createElement("a");
+        aEdit.setAttribute('data-termeid',terme.id);
+        aEdit.setAttribute('data-toggle','modal');
+        aEdit.setAttribute('data-target','#editionTermeModal');
+        var imgEdit = document.createElement( "IMG" );
+        imgEdit.setAttribute('src','static/icons/16/gtk-edit.svg');
+        aEdit.appendChild(imgEdit);
+  //      aEdit.innerHTML = "Edition";
         spanTerme.appendChild(aEdit);
          
         $( "#divout" ).append(spanTerme);
@@ -150,14 +233,99 @@ $( "#termeAn" )
 
     var aAdd = document.createElement("A");
     aAdd.setAttribute('href', 'terme/nouveau/termean/' + termeAn );
-      var imgAdd = document.createElement( "IMG" );
-        imgAdd.setAttribute('src','static/icons/16/list-add.svg');
-      aAdd.appendChild(imgAdd);
+    var imgAdd = document.createElement( "IMG" );
+    imgAdd.setAttribute('src','static/icons/16/list-add.svg');
+    aAdd.appendChild(imgAdd);
     $( "#divbouton" ).append(aAdd);
 
   });
-   
-   
+  
+  $('#editionTermeModal').on('show.bs.modal', function (event) {
+      console.log('show.bs.modal editionTermeModal');
+      var termeId = $(event.relatedTarget).data('termeid') // Extract info from data-* attributes
+      console.log('Edition termeid = ' + termeId );
+      $(event.currentTarget).find('input[name="termeId"]').val(termeId);
+      var termeFr;
+      json_url = "terme/parId/" + termeId + "/";
+      var json_urlAn = ""
+      $.getJSON(json_url, function( terme ) {
+         console.log('terme = ',terme);
+         $(event.currentTarget).find('input[id="termeFrancais"]').val(terme.terme);
+         termeFr=terme.terme;
+         console.log('Recu terme: ' + termeFr);
+         $(event.currentTarget).find('input[id="termeContexte"]').val(terme.contexte);
+         $(event.currentTarget).find('textarea[id="termeDefinition"]').val(terme.definition);
+         $(event.currentTarget).find('input[id="termeSource"]').val(terme.source);
+
+         var modal = $(this);
+         modal.find('.modal-title').text('Edition du terme: ' + terme.terme);
+      
+         json_urlAn = "terme/termeAnParId/" + terme.termeAn_id + "/";
+         console.log("getJSON: " + json_urlAn);
+         $.getJSON(json_urlAn, function( termeAn ) {
+               $(event.currentTarget).find('input[id="termeAnglais"]').val(termeAn.terme);
+               console.log('Recu termeAn: ' + termeAn.terme);
+         });      
+      });      
+   });
+  $('#editionClientModal').on('show.bs.modal', function (event) {
+      console.log('show.bs.modal editionClientModal');
+      var clientId = $(event.relatedTarget).data('clientid') // Extract info from data-* attributes
+      var modal = $(this);
+      
+      console.log('FormClient client id = ' + clientId );
+      console.log('Source = ' + event.relatedTarget.id );
+      
+      modal.find('.form-hidden input').val(clientId);
+      modal.find('.modal-body form').attr("action",event.relatedTarget.id );
+      //("#formClient").attr("action",event.relatedTarget.id+"/");     
+      
+      switch(event.relatedTarget.id) {
+        case "ClientEdite":        
+          var json_url = "terme/Client/" + clientId + "/";
+          $.getJSON(json_url, function( client ) {
+            console.log('Client id = ', client.id );
+            modal.find('.form-group input').val(client.nom_client);
+            modal.find('.form-group input').readonly = false;
+            modal.find('button.btn.btn-primary').text('Sauvegarder');
+            modal.find('.modal-title').text('Edition client');
+          });
+          break;
+          
+        case "ClientSupprime":
+          var json_url = "terme/Client/" + clientId + "/";
+          $.getJSON(json_url, function( client ) {
+            console.log('Client id = ', client.id );
+            modal.find('.form-group input').val(client.nom_client);
+            modal.find('.form-group input').readonly = true;
+            modal.find('button.btn.btn-primary').text('Supprimer');
+            modal.find('.modal-title').text('Suppression client');
+          });
+          break;
+
+        case "ClientAjout":
+          modal.find('.form-group input').val('');
+          modal.find('.form-group input').readonly = false;
+          modal.find('button.btn.btn-primary').text('Ajouter');
+          modal.find('.modal-title').text('Ajout client');
+          break;
+      }      
+    });
+
+    $('#formClient_submit').click(function(e){
+      e.preventDefault();
+      console.log($('#formClient').serialize());
+      console.log('action = ' + $('#formClient').attr("action"));
+      var action = $('#formClient').attr("action");
+      $.post('terme/' + action + '/', 
+         $('#formClient').serialize(), 
+         function(data, status, xhr){
+           // do something here with response;
+           console.log('Nom Client = '  + data.nom_client);
+           window.location.reload();
+         });
+    });
+
 // clientpagination est très intéressant
 </script>
 </body>
